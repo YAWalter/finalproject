@@ -14,10 +14,23 @@ class routes
         //bellow adds routes to your program, routes match the URL and request method with the controller and method.
         //You need to follow this pattern to add new URLS
         //You should improve this function by making functions to create routes in a factory. I will look for this when grading
+		
+		// FACTORY: http_method,page,action,controller[,method = usually the same as action]
+		// $route = new route();
+		// 	-HTTP_METHOD
+		// 		foreach array(GET,POST)
+		// 	-PAGE
+		// 		foreach array(homepage,todos,accounts)
+		// 	-ACTION
+		// 		foreach array(?actions?)
+		// 	-CONTROLLER
+		// 		foreach ($controllers) // $controllers = array(); foreach ($pages as $page) { $controllers[] = $page . 'Controller'; } return $controllers;
+		// 	-METHOD
+		// 		foreach array(methods)
+		// $routes[] = $route;
 
-        //I also use object for the route because it has data and it's easier to access.
-        $route = new route();
         //this is the index.php route for GET
+        $route = new route();
         //Specify the request method
         $route->http_method = 'GET';
         //specify the page.  index.php?page=index.  (controller name / method called
@@ -31,9 +44,7 @@ class routes
         //this adds the route to the routes array.
         $routes[] = $route;
 
-        //this is the index.php route for POST
-
-        //This is an examole of the post for index
+        //This is an example of the post for index
         $route = new route();
         $route->http_method = 'POST';
         $route->action = 'create';
@@ -42,7 +53,7 @@ class routes
         $route->method = 'create';
         $routes[] = $route;
 
-        //This is an examole of the post for tasks to show a task
+        //This is an example of the post for tasks to show a task
         //GET METHOD index.php?page=tasks&action=show
         $route = new route();
         $route->http_method = 'GET';
@@ -52,7 +63,7 @@ class routes
         $route->method = 'show';
         $routes[] = $route;
 
-        //This is an examole of the post for tasks to list tasks.  See the action matches the method name.
+        //This is an example of the post for tasks to list tasks.  See the action matches the method name.
         //you need to add routes for create, edit, and delete
         //GET METHOD index.php?page=tasks&action=all
 

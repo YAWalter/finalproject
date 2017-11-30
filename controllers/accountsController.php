@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kwilliams
- * Date: 11/27/17
- * Time: 5:32 PM
- */
-
 
 //each page extends controller and the index.php?page=tasks causes the controller to be called
 class accountsController extends http\controller
@@ -55,6 +48,18 @@ class accountsController extends http\controller
     public static function store()
     {
         print_r($_POST);
+		
+		$record = accounts::fineOne($_REQUEST['id']);
+		$record->email = $_POST['email'];
+		$record->fname = $_POST['fname'];
+		$record->lname = $_POST['lname'];
+		$record->phone = $_POST['phone'];
+		$record->birthday = $_POST['birthday'];
+		$record->gender = $_POST['gender'];
+		$record->password = $_POST['password'];
+		$record->save();
+		
+		header("Location: index.php?page=accounts&action=all");
 
     }
 
