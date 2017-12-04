@@ -7,6 +7,8 @@ class accounts extends \database\collection
     //This is the function to write to find user by ID for login.
     //Don't forget to return the object see findOne in the collection class
     public static  function findUserbyID($userid) {}
+	
+	// query for related todos?
 }
 
 ?>

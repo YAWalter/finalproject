@@ -1,6 +1,10 @@
 <?php
 
-define('DATABASE', 'sd686');
-define('USERNAME', 'sd686');
-define('PASSWORD', 'ZOm1EN5l3');
-define('CONNECTION', 'sql1.njit.edu');
+// db connection vars ----------------- //
+define('DATABASE', 'yw674');			//
+define('USERNAME', 'yw674');			//
+define('PASSWORD', 'HEurGiFfp');		//
+define('CONNECTION', 'sql2.njit.edu');	//
+// ------------------------------------ //
+
+?>

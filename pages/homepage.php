@@ -22,7 +22,7 @@
     <?php
 
     //this how to print some data;
-    echo $data['site_name'];
+    echo $data['site_name'] . ' Welcome!';
 
     ?> </h1>
 

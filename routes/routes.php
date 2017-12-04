@@ -1,10 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kwilliams
- * Date: 11/27/17
- * Time: 5:25 PM
- */
+
+// route prototype object  you would make a factory to return this
+
+class route
+{
+    public $page;
+    public $action;
+    public $method;
+    public $controller;
+}
 
 class routes
 {
@@ -19,17 +23,37 @@ class routes
 		// $route = new route();
 		// 	-HTTP_METHOD
 		// 		foreach array(GET,POST)
-		// 	-PAGE
-		// 		foreach array(homepage,todos,accounts)
+		// 	-PAGE [index.php?page=index; controller name / method called]
+		// 		foreach array(homepage,todos,accounts,login)
 		// 	-ACTION
-		// 		foreach array(?actions?)
+		// 		foreach array(all, show, create, edit, delete)
 		// 	-CONTROLLER
 		// 		foreach ($controllers) // $controllers = array(); foreach ($pages as $page) { $controllers[] = $page . 'Controller'; } return $controllers;
 		// 	-METHOD
 		// 		foreach array(methods)
 		// $routes[] = $route;
 
-        //this is the index.php route for GET
+        $http_methods 	= array('GET', 'POST');
+		$pages 			= array('homepage', 'tasks', 'accounts', 'login');
+		$actions		= array('all', 'show', 'create', 'edit', 'delete');
+		
+		foreach ($http_methods as $http) {
+			foreach ($pages as $page) {
+				foreach ($actions as $action) {
+					
+					$route = new route();
+        			$route->http_method = $http;
+			        $route->page = $page;
+			        $route->action = $action;
+			        $route->controller = $page.'Controller';
+			        $route->method = $action;
+
+			        $routes[] = $route;
+				}
+			}
+		}
+/*		
+		//this is the index.php route for GET
         $route = new route();
         //Specify the request method
         $route->http_method = 'GET';
@@ -113,17 +137,7 @@ class routes
         $route->controller = 'tasksController';
         $route->method = 'delete';
         $routes[] = $route;
-
+*/
         return $routes;
     }
-}
-
-//this is the route prototype object  you would make a factory to return this
-
-class route
-{
-    public $page;
-    public $action;
-    public $method;
-    public $controller;
 }
