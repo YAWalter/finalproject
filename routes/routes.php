@@ -40,7 +40,7 @@ class routes
 		foreach ($http_methods as $http) {
 			foreach ($pages as $page) {
 				foreach ($actions as $action) {
-					$route = new route();
+        			$route = new route();
         			$route->http_method = $http;
 			        $route->page = $page;
 			        $route->action = $action;
