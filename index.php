@@ -20,14 +20,14 @@ $response = http\processRequest::createResponse();
 
 //Basic Steps:
 
-//1. Add a route for each request you need to process (GET / POST).  See the template provided in routes.php.
+//1. ---DONE--- Add a route for each request you need to process (GET / POST).  See the template provided in routes.php.
 //2. Add a controller and/or add methods to the controller, which match the actions that you want the program to perform.
 //3. Add HTML view templates to the page folder.  Look at how the template is called and you can pass data to the template
 
 //Suggested order of work:
 
-//1.  Get findall working and displaying a table for the todos class's todos_list method;
-//2.  Get findOne working to find one to-do and make that work for the todos controller show method.  Remember you have to pass the ID.
+//1.  ---DONE--- Get findall working and displaying a table for the todos class's todos_list method;
+//2.  ---DONE--- Get findOne working to find one to-do and make that work for the todos controller show method.  Remember you have to pass the ID.
 //3.  Get the Insert working
 //4.  get the delete working
 //5.  update working
