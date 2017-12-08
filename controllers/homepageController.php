@@ -9,8 +9,7 @@
 //GET  index.php?page=accounts?action=show  	this would be to show the user profile and you get the userID out of session
 
 
-class homepageController extends http\controller
-{
+class homepageController extends http\controller {
 
     public static function show() {
 //this is the show method that is called to show the sites name in a template any array passed in will be accepted by the template function as a model

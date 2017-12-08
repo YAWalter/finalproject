@@ -6,13 +6,12 @@ class controller
 {
 
 
-//this gets the HTML template for the application and accepts the model.  The model array can be used in the template
+//builds the HTML template for the application and accepts the model.  The model array can be used in the template
     static public function getTemplate($template, $data = NULL)
     {
-
-        $template = 'pages/' . $template . '.php';
-//in your template you should use $data to access your array
-        include $template;
+		include 'pages/templates/header.php';
+        include 'pages/' . $template . '.php'; 	// use $data to access the array in the template 
+		include 'pages/templates/footer.php';
 
     }
 }

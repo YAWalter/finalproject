@@ -5,7 +5,7 @@ namespace utility;
 
 class htmlTable
 {
-    public static function genarateTableFromMultiArray($array)
+    public static function generateTableFromMultiArray($array)
     {
 
         $tableGen = '<table border="1"cellpadding="10">';
