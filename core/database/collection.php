@@ -2,20 +2,18 @@
 
 namespace database;
 
-abstract class collection
-{
+abstract class collection {
 
     //factory to make model
-    static public function create()
-    {
+    static public function create() {
         $model = new static::$modelName;
         return $model;
     }
 
-    static public function findAll()
-    {
+    static public function findAll() {
         $tableName = get_called_class();
-        $sql = 'SELECT * FROM ' . $tableName;
+        $sql = sqlBuilder::sqlSelect($tableName);
+		
         return self::getResults($sql);
     }
 
@@ -30,13 +28,13 @@ abstract class collection
         return $recordsSet;
     }
 
-    static public function findOne($id)
-    {
+    static public function findOne($id) {
         $tableName = get_called_class();
-        $sql = 'SELECT * FROM ' . $tableName . ' WHERE id =' . $id;
+        $sql = sqlBuilder::sqlSelect($tableName, $id);
         //grab the only record for find one and return as an object
         $recordsSet = self::getResults($sql);
-        return $recordsSet[0];
+        
+		return $recordsSet[0];
     }
 }
 
