@@ -17,9 +17,14 @@ class htmlForm {
 		// form inputs
 		$form .= htmlForm::formInputs($data);
 
-		// delete and save buttons
-		$form .= htmlForm::formButton('delete', $table, $id);
+		// save button
 		$form .= htmlForm::formButton('store', $table, $id);
+		$form .= '&nbsp;&nbsp;&nbsp;';
+		
+		// delete link (not a button)
+		$delete = 'index.php?page=' . $table . '&action=delete' . htmlForm::checkID($id);
+		$form .= htmlTags::href($delete, 'Delete');
+		//$form .= htmlForm::formButton('delete', $table, $id);
 		
 		$form .= '</form>';
 		
