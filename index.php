@@ -30,7 +30,7 @@ $response = http\processRequest::createResponse();
 //2.  ---DONE--- Get findOne working to find one to-do and make that work for the todos controller show method.  Remember you have to pass the ID.
 //3.  Get the Insert working
 //4.  get the delete working
-//5.  update working
+//5.  ---DONE--- update working
 //6.  once you have this all working for todos start working on accounts
 //7.  once accounts works for login / logout / show user profile / edit profile
 //8.  go back and add a useriD field to your todos table and update program accordingly i.e. the model

@@ -20,7 +20,6 @@ class tasksController extends http\controller {
     public static function all() {
         $records = todos::findAll();
         self::getTemplate('all_tasks', $records);
-
     }
 	
     //to call the show function the url is called with a post to: index.php?page=task&action=create
@@ -28,7 +27,11 @@ class tasksController extends http\controller {
     //you should check the notes on the project posted in moodle for how to use active record here
 
     public static function create() {
-        print_r($_POST);
+        //print_r($_POST);
+		
+		$record = todos::create();
+
+		self::getTemplate('edit_task', $record);
     }
 
     //this is the function to view edit record form
@@ -36,26 +39,23 @@ class tasksController extends http\controller {
         $record = todos::findOne($_REQUEST['id']);
 
        	self::getTemplate('edit_task', $record);
-
     }
 
     //this would be for the post for sending the task edit form
     public static function store() {
 
         $record = todos::findOne($_REQUEST['id']); 
-		$record->owneremail = $_POST['owneremail'];
+		$record->owneremail = $_POST['owneremail'];		// needs to be $_SESSION['owneremail'] for new ones
 		$record->ownerid = $_POST['ownerid']; 			// needs to be $_SESSION['userid'] for new ones
 		$record->createddate = $_POST['createddate']; 	// needs now() for new ones
 		$record->duedate = $_POST['duedate'];
 		$record->message = $_POST['message'];
-		$record->isdone = $_POST['isdone'];
+		$record->isdone = $_POST['isdone'];				// default is 0?
 		
 //        $record->body = $_REQUEST['body'];
         $record->save();
 		
-        print_r($_POST); // debug
 		self::getTemplate('show_task', $record);
-
     }
 
     //this is the delete function.  You actually return the edit form and then there should be 2 forms on that.
