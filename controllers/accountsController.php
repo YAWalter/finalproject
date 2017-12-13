@@ -1,18 +1,18 @@
 <?php
 
-//each page extends controller and the index.php?page=tasks causes the controller to be called
+//each page extends controller and the index.php?page=accounts causes the controller to be called
 class accountsController extends http\controller
 {
 
     //each method in the controller is named an action.
-    //to call the show function the url is index.php?page=task&action=show
+    //to call the show function the url is index.php?page=account&action=show
     public static function show()
     {
         $record = accounts::findOne($_REQUEST['id']);
         self::getTemplate('show_account', $record);
     }
 
-    //to call the show function the url is index.php?page=task&action=list_task
+    //to call the show function the url is index.php?page=account&action=list_account
 
     public static function all()
     {
@@ -21,8 +21,8 @@ class accountsController extends http\controller
         self::getTemplate('all_accounts', $records);
 
     }
-    //to call the show function the url is called with a post to: index.php?page=task&action=create
-    //this is a function to create new tasks
+    //to call the show function the url is called with a post to: index.php?page=account&action=create
+    //this is a function to create new accounts
 
     //you should check the notes on the project posted in moodle for how to use active record here
 
@@ -78,7 +78,7 @@ class accountsController extends http\controller
         //when you add the method you need to look at my find one, you need to return the user object.
         //then you need to check the password and create the session if the password matches.
         //you might want to add something that handles if the password is invalid, you could add a page template and direct to that
-        //after you login you can use the header function to forward the user to a page that displays their tasks.
+        //after you login you can use the header function to forward the user to a page that displays their accounts.
         //        $record = accounts::findUser($_POST['uname']);
 
         print_r($_POST);
