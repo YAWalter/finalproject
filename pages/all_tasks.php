@@ -1,6 +1,4 @@
-
 <?php
-//this is how you print something
 
 echo utility\htmlTable::generateTableFromMultiArray($data);
 

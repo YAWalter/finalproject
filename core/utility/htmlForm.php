@@ -5,28 +5,27 @@ class htmlForm {
 	// ## form builder - table name, action, data
 	public static function formBuild($table, $action, $data = NULL) {
 		
-		// 
 		$id = $_REQUEST['id'];
+		
+		// form title
 		$form  = htmlTags::heading(ucwords($table));
 		
+		// form action
 		$form .= htmlForm::formAction($table, $action, $id);
-		echo $form;
 		
-		// for deletes, don't show the form inputs
-		if ($action != 'remove') {
-			$form .= ($table == 'accounts') ?
-				htmlForm::accountFormInputs($data) :
-				htmlForm::todoFormInputs($data);
-		} 
+		$form .= ($table == 'accounts') ?
+			htmlForm::accountFormInputs($data) :
+			htmlForm::todoFormInputs($data);
+
+		// delete and save buttons
+		$form .= '<input type="submit" value="Delete" 
+			formaction="index.php?page=' . $table . 
+			'&action=delete&id=' . $id . '" name="delete">';
 		
-		if ($action == 'update') {
-			$form .= '<input type="submit" value="remove" 
-				formaction="/index.php?page=remove&table=' . $table .
-				'&id=' . $id . '.php" name="remove">';
-		}			
+		$form .= '<input type="submit" value="Save"
+			formaction="index.php?page=' . $table .
+			'&action=store&id=' . $id . '" name="save">';		
 		
-		$form .= '<input type="submit" value="'. $action .
-				'" name="submit">';
 		$form .= '</form> ';
 		
 		return $form;

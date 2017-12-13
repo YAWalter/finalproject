@@ -43,18 +43,18 @@ class tasksController extends http\controller {
     public static function store() {
 
         $record = todos::findOne($_REQUEST['id']); 
-/*		$record->owneremail = $_POST['owneremail'];
-		$record->ownerid = $_POST['ownerid']; // needs to be $_SESSION['userid']
-		$record->createddate = $_POST['createddate']; // needs now()
+		$record->owneremail = $_POST['owneremail'];
+		$record->ownerid = $_POST['ownerid']; 			// needs to be $_SESSION['userid'] for new ones
+		$record->createddate = $_POST['createddate']; 	// needs now() for new ones
 		$record->duedate = $_POST['duedate'];
 		$record->message = $_POST['message'];
 		$record->isdone = $_POST['isdone'];
-*/		
-        $record->body = $_REQUEST['body'];
+		
+//        $record->body = $_REQUEST['body'];
         $record->save();
 		
         print_r($_POST); // debug
-//		self::getTemplate('show_task', $record);
+		self::getTemplate('show_task', $record);
 
     }
 
