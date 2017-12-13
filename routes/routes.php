@@ -23,7 +23,7 @@ class routes
 		// 	-PAGE [index.php?page=index; controller name / method called]
 		$pages 			= array('homepage', 'tasks', 'accounts', 'login');
 		// 	-ACTION
-		$actions		= array('all', 'show', 'create', 'edit', 'delete');
+		$actions		= array('all', 'show', 'create', 'edit', 'store', 'delete');
 		// 	-CONTROLLER
 		// 		$page.'Controller'
 		// 	-METHOD

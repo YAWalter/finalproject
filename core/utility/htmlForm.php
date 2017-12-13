@@ -2,41 +2,45 @@
 namespace utility;
 
 class htmlForm {
-	// ## form builder (str Title, str PageName)
-	public static function formBuild($table, $operation, $data = NULL) {
+	// ## form builder - table name, action, data
+	public static function formBuild($table, $action, $data = NULL) {
 		
-		$id = pageBuild::getParam('id');
+		// 
+		$id = $_REQUEST['id'];
 		$form  = htmlTags::heading(ucwords($table));
 		
-		$form .= htmlTags::formAction($table, $operation, $id);
+		$form .= htmlForm::formAction($table, $action, $id);
+		echo $form;
 		
-		if ($operation != 'remove') {
+		// for deletes, don't show the form inputs
+		if ($action != 'remove') {
 			$form .= ($table == 'accounts') ?
-				htmlTags::accountFormInputs($data) :
-				htmlTags::todoFormInputs($data);
+				htmlForm::accountFormInputs($data) :
+				htmlForm::todoFormInputs($data);
 		} 
 		
-		if ($operation == 'update') {
+		if ($action == 'update') {
 			$form .= '<input type="submit" value="remove" 
 				formaction="/index.php?page=remove&table=' . $table .
 				'&id=' . $id . '.php" name="remove">';
 		}			
 		
-		$form .= '<input type="submit" value="'. $operation .
+		$form .= '<input type="submit" value="'. $action .
 				'" name="submit">';
 		$form .= '</form> ';
 		
 		return $form;
 	}
 	
-	public static function formAction($table, $operation, $id) {
-		$action = '<form action="index.php?';
-		$action .= 'page=' . $operation . '&table=' . $table;
+	// builds the action part of the form tag: page=XXX&action=XXX[&id=X]
+	public static function formAction($table, $action, $id) {
+		$form = '<form action="index.php?';
+		$form .= 'page=' . $table . '&action=' . $action;
 		if ($id != NULL)
-			$action .= '&id=' . $id;
-		$action .= '" method="post" enctype="multipart/form-data">';
+			$form .= '&id=' . $id;
+		$form .= '" method="post" enctype="multipart/form-data">';
 		
-		return $action;
+		return $form;
 	}
 	
 	public static function formInput($name, $val = NULL, $type = 'text') {
@@ -49,27 +53,28 @@ class htmlForm {
 		return $input;
 	}
 	
-/*	public static function accountFormInputs($data) {
+	public static function accountFormInputs($data) {
 		// all 'account' form inputs
 		$inputs  = 'EMAIL: ' . 
-			htmlTags::formInput('email', $data->email) . 
+			htmlForm::formInput('email', $data->email) . 
 			htmlTags::lineBreak();
 		$inputs .= 'FIRST NAME: ' . 
-			htmlTags::formInput('fname', $data->fname) . 
+			htmlForm::formInput('fname', $data->fname) . 
 			htmlTags::lineBreak();
 		$inputs .= 'LAST NAME: ' . 
-			htmlTags::formInput('lname', $data->lname) .
+			htmlForm::formInput('lname', $data->lname) .
 			htmlTags::lineBreak();
 		$inputs .= 'PHONE: ' . 
-			htmlTags::formInput('phone', $data->phone) . 
+			htmlForm::formInput('phone', $data->phone) . 
 			htmlTags::lineBreak();
 		$inputs .= 'BIRTHDAY: ' . 
-			htmlTags::formInput('birthday', $data->birthday, 'datetime') . htmlTags::lineBreak();
+			htmlForm::formInput('birthday', $data->birthday, 'datetime') . 
+			htmlTags::lineBreak();
 		$inputs .= 'GENDER: ' . 
-			htmlTags::formInput('gender', $data->gender) .
+			htmlForm::formInput('gender', $data->gender) .
 			htmlTags::lineBreak();
 		$inputs .= 'PASSWORD: ' . 
-			htmlTags::formInput('password', $data->password) . 
+			htmlForm::formInput('password', $data->password) . 
 			htmlTags::lineBreak();
 		
 		return $inputs;
@@ -78,25 +83,25 @@ class htmlForm {
 	public static function todoFormInputs($data) {
 		// all 'todo' form inputs
 		$inputs  = 'OWNER EMAIL: ' . 
-			htmlTags::formInput('owneremail', $data->owneremail) .
+			htmlForm::formInput('owneremail', $data->owneremail) .
 			htmlTags::lineBreak();
 		$inputs .= 'OWNER ID: ' . 
-			htmlTags::formInput('ownerid', $data->ownerid) .
+			htmlForm::formInput('ownerid', $data->ownerid) .
 			htmlTags::lineBreak();
 		$inputs .= 'CREATED DATE: ' . 
-			htmlTags::formInput('createddate', $data->createddate, 'datetime') . 
+			htmlForm::formInput('createddate', $data->createddate, 'datetime') . 
 			htmlTags::lineBreak();
 		$inputs .= 'DUE DATE: ' . 
-			htmlTags::formInput('duedate', $data->duedate, 'datetime') .
+			htmlForm::formInput('duedate', $data->duedate, 'datetime') .
 			htmlTags::lineBreak();
 		$inputs .= 'MESSAGE: ' . 
-			htmlTags::formInput('message', $data->message) .
+			htmlForm::formInput('message', $data->message) .
 			htmlTags::lineBreak();
 		$inputs .= 'IS DONE: ' . 
-			htmlTags::formInput('isdone', $data->isdone) . 
+			htmlForm::formInput('isdone', $data->isdone) . 
 			htmlTags::lineBreak();
 		
 		return $inputs;
-	}*/
+	}
 }
 ?>

@@ -35,18 +35,26 @@ class tasksController extends http\controller {
     public static function edit() {
         $record = todos::findOne($_REQUEST['id']);
 
-        self::getTemplate('edit_task', $record);
+       	self::getTemplate('edit_task', $record);
 
     }
 
     //this would be for the post for sending the task edit form
     public static function store() {
 
-
-        $record = todos::findOne($_REQUEST['id']);
+        $record = todos::findOne($_REQUEST['id']); 
+/*		$record->owneremail = $_POST['owneremail'];
+		$record->ownerid = $_POST['ownerid']; // needs to be $_SESSION['userid']
+		$record->createddate = $_POST['createddate']; // needs now()
+		$record->duedate = $_POST['duedate'];
+		$record->message = $_POST['message'];
+		$record->isdone = $_POST['isdone'];
+*/		
         $record->body = $_REQUEST['body'];
         $record->save();
-        print_r($_POST);
+		
+        print_r($_POST); // debug
+//		self::getTemplate('show_task', $record);
 
     }
 
@@ -58,5 +66,11 @@ class tasksController extends http\controller {
         print_r($_POST);
 
     }
+		
+	// validates input for todos
+	private static function validator($record) {
+		
+		return true;
+	}
 
 }

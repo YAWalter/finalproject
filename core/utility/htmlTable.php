@@ -32,7 +32,7 @@ class htmlTable
             $tableGen .= '</tr>';
         }
 
-        $tableGen .= '</table>';
+        $tableGen .= '</table>' . htmlTags::lineBreak();
 
         return $tableGen;
     }

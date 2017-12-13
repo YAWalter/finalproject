@@ -23,8 +23,12 @@ class htmlTags {
 		return '<a href=' . $link . '>' . $text . '</a>';
 	}
 	
-	public static function lineBreak() {
-			return '<br>';
+	public static function lineBreak($repeat = 1) {
+		$breaks = '';
+		for ($x = 1; $x <= $repeat; $x++)
+			$breaks .= '<br>';
+		
+		return $breaks;
 	}
 	
 	public static function pre($str) {
