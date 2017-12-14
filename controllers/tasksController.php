@@ -30,6 +30,8 @@ class tasksController extends http\controller {
         //print_r($_POST);
 		
 		$record = todos::create();
+		if ($_POST)
+			$record->body = $_REQUEST['body']; //does this work?
 
 		self::getTemplate('edit_task', $record);
     }
@@ -44,7 +46,10 @@ class tasksController extends http\controller {
     //this would be for the post for sending the task edit form
     public static function store() {
 
-        $record = todos::findOne($_REQUEST['id']); 
+        if (array_key_exists('id', $_REQUEST))
+			$record = todos::findOne($_REQUEST['id']);
+		else
+			$record = new todo;
 		$record->owneremail = $_POST['owneremail'];		// needs to be $_SESSION['owneremail'] for new ones
 		$record->ownerid = $_POST['ownerid']; 			// needs to be $_SESSION['userid'] for new ones
 		$record->createddate = $_POST['createddate']; 	// needs now() for new ones
