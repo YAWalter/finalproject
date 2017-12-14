@@ -15,4 +15,4 @@
     <![endif]-->
 </head>
 
-<body>
+<body class="container">

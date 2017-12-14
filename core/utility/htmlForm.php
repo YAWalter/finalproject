@@ -68,7 +68,7 @@ class htmlForm {
 		foreach ($data as $key=>$val) {
 			// hide the id column
 			if ($key == 'id') {
-				$inputs .= htmlForm::formInput($key, $data->$key, 'hidden');
+/*				$inputs .= htmlForm::formInput($key, $data->$key, 'hidden');*/
 				continue;
 			}
 				
