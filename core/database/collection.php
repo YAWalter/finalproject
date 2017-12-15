@@ -12,7 +12,7 @@ abstract class collection {
 
     static public function findAll() {
         $tableName = get_called_class();
-        $sql = sqlBuilder::sqlSelect($tableName);
+        $sql = sqlBuilder::sqlSelect($tableName); // table name, field value, # of results, column (to match $field)
 		
         return self::getResults($sql);
     }

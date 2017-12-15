@@ -79,21 +79,25 @@ class accountsController extends http\controller
         //you might want to add something that handles if the password is invalid, you could add a page template and direct to that
         //after you login you can use the header function to forward the user to a page that displays their accounts.
 		
-		//print_r($_POST);
-		echo utility\htmlTags::lineBreak();
         
 		$user = accounts::findUserbyEmail($_POST['uname']);
         if ($user == FALSE) {
 			self::getTemplate('homepage', 'User not Found');
         } else {
             if($user->checkPassword($_POST['psw']) == TRUE) {
+                session_set_cookie_params(604800, '/');
+				session_start();
                 echo 'login';
-                session_start();
                 $_SESSION['userID'] = $user->id;
+				echo utility\htmlTags::preObj($_SESSION);
 				
                 //forward the user to the show all todos page
-				$records = todos::findAll();
-				header("Location: index.php?page=tasks&action=all");
+				$records = todos::findAll($_SESSION['userID']);
+				
+				echo utility\htmlTags::preObj($records);
+				
+				//self::getTemplate('all_tasks', $records);
+				//header("Location: index.php?page=tasks&action=all");
             } else {
                 echo 'password does not match';
 			}

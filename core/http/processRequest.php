@@ -9,12 +9,10 @@ namespace http;
  */
 //by using the use here you don't have to put http on each class in that namespace
 
-class processRequest
-{
+class processRequest {
 
     //this is the main function of the program to calculate the response to a get or post request
-    public static function createResponse()
-    {
+    public static function createResponse() {
 
         $requested_route = processRequest::getRequestedRoute();
 
@@ -36,8 +34,7 @@ class processRequest
     }
 
     //this function matches the request to the correct controller
-    public static function getRequestedRoute()
-    {
+    public static function getRequestedRoute() {
 
         //this is a helper function that needs to be improved because it does too much.  I will look for this in grading
 
