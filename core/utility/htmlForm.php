@@ -68,12 +68,16 @@ class htmlForm {
 		foreach ($data as $key=>$val) {
 			// hide the id column
 			if ($key == 'id') {
-/*				$inputs .= htmlForm::formInput($key, $data->$key, 'hidden');*/
 				continue;
 			}
-				
+			
 			$inputs .= strtoupper($key) . ': '; 
-			$inputs .= htmlForm::formInput($key, $data->$key);
+			// hides input for password field
+			if ($key == 'password')
+				$inputs .= htmlForm::formInput($key, $data->$key, 'password');
+			else
+				$inputs .= htmlForm::formInput($key, $data->$key);
+				
 			$inputs .= htmlTags::lineBreak();
 		}
 	

@@ -17,7 +17,8 @@ class htmlTable
         //this gets the page being viewed so that the table routes requests to the correct controller
         $referingPage = $_REQUEST['page'];
         foreach ($fieldHeadings as $heading) {
-            $tableGen .= '<th>' . $heading . '</th>';
+            // print all headings except password
+			$tableGen .= htmlTable::hidePass($heading, $heading);
         }
         $tableGen .= '</tr>';
         foreach ($array as $record) {
@@ -25,7 +26,9 @@ class htmlTable
             foreach ($record as $key => $value) {
                 if ($key == 'id') {
                     $tableGen .= '<td><a href="index.php?page=' . $referingPage . '&action=show&id=' . $value . '">View</a></td>';
-                } else {
+                } elseif ($key == 'password') {
+					$tableGen .= '';
+				} else {
                     $tableGen .= '<td>' . $value . '</td>';
                 }
             }
@@ -37,23 +40,31 @@ class htmlTable
         return $tableGen;
     }
 
-    public static function generateTableFromOneRecord($innerArray)
-    {
+    public static function generateTableFromOneRecord($innerArray) {
         $tableGen = '<table class="table-striped" border="1" cellpadding="10"><tr>';
 
         $tableGen .= '<tr>';
         foreach ($innerArray as $innerRow => $value) {
-            $tableGen .= '<th>' . $innerRow . '</th>';
+            $tableGen .= htmlTable::hidePass($innerRow, $innerRow);
         }
         $tableGen .= '</tr>';
 
-        foreach ($innerArray as $value) {
-            $tableGen .= '<td>' . $value . '</td>';
+        foreach ($innerArray as $key=>$value) {
+            $tableGen .= htmlTable::hidePass($key, $value, 'td');
         }
 
         $tableGen .= '</tr></table><hr>';
         return $tableGen;
     }
+	
+	private static function hidePass($key, $value, $type = 'th') {
+		$cell = ($key != 'password') ?
+					'<'. $type . '>' . $value . '</'. $type .'>' :
+					'';
+		return $cell;
+	}
+	
+
 }
 
 ?>

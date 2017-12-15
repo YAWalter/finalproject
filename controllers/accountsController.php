@@ -1,21 +1,18 @@
 <?php
 
 //each page extends controller and the index.php?page=accounts causes the controller to be called
-class accountsController extends http\controller
-{
+class accountsController extends http\controller {
 
     //each method in the controller is named an action.
     //to call the show function the url is index.php?page=account&action=show
-    public static function show()
-    {
+    public static function show() {
         $record = accounts::findOne($_REQUEST['id']);
         self::getTemplate('show_account', $record);
     }
 
     //to call the show function the url is index.php?page=account&action=list_account
 
-    public static function all()
-    {
+    public static function all() {
 
         $records = accounts::findAll();
         self::getTemplate('all_accounts', $records);
@@ -27,29 +24,21 @@ class accountsController extends http\controller
     //you should check the notes on the project posted in moodle for how to use active record here
 
     //this is to register an account i.e. insert a new account
-    public static function register()
-    {
-        //https://www.sitepoint.com/why-you-should-use-bcrypt-to-hash-stored-passwords/
-        //USE THE ABOVE TO SEE HOW TO USE Bcrypt
-        print_r($_POST);
-        //this just shows creating an account.
-        $record = new account();
-        $record->email = "kwilliam@njit.edu";
-        $record->fname = "test2";
-        $record->lname = "cccc2";
-        $record->phone = "4444444";
-        $record->birthday = "0";
-        $record->gender = "male";
-        $record->password = "12345";
-        $record->save();
+    public static function create() {
+        $record = accounts::create();
+		if ($_POST)
+			$record->body = $_REQUEST['body'];
+		
+		self::getTemplate('edit_account', $record);
     }
 
     //this is the function to save the user the user profile
-    public static function store()
-    {
-        print_r($_POST);
+    public static function store() {
+        if (array_key_exists('id', $_REQUEST))
+			$record = accounts::findOne($_REQUEST['id']);
+		else
+			$record = new account;
 		
-		$record = accounts::findOne($_REQUEST['id']);
 		$record->email = $_POST['email'];
 		$record->fname = $_POST['fname'];
 		$record->lname = $_POST['lname'];
@@ -57,9 +46,15 @@ class accountsController extends http\controller
 		$record->birthday = $_POST['birthday'];
 		$record->gender = $_POST['gender'];
 		$record->password = $record->setPassword($_POST['password']);
-		$record->save();
 		
-		header("Location: index.php?page=accounts&action=all");
+		if (self::validator($record)) {
+	        $record->save();
+			echo 'Saved account!';
+			self::getTemplate('show_account', $record);
+		} else {
+			echo 'Save failed! Try again...';
+			self::getTemplate('edit_account', $record);
+		}
 
     }
 
@@ -67,6 +62,16 @@ class accountsController extends http\controller
         $record = accounts::findOne($_REQUEST['id']);
 
         self::getTemplate('edit_account', $record);
+
+    }
+	
+	public static function delete() {
+        $record = accounts::findOne($_REQUEST['id']);
+		$record->delete();
+        echo 'Deleted account id: ' . $_REQUEST['id'];
+		
+		$records = accounts::findAll();
+        self::getTemplate('all_accounts', $records);
 
     }
 
@@ -89,6 +94,7 @@ class accountsController extends http\controller
 				session_start();
                 echo 'login';
                 $_SESSION['userID'] = $user->id;
+				$_SESSION['email'] = $user->owneremail;
 				echo utility\htmlTags::preObj($_SESSION);
 				
                 //forward the user to the show all todos page

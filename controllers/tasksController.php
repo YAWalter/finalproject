@@ -32,7 +32,7 @@ class tasksController extends http\controller {
 		
 		$record = todos::create();
 		if ($_POST)
-			$record->body = $_REQUEST['body']; //does this work?
+			$record->body = $_REQUEST['body'];
 
 		self::getTemplate('edit_task', $record);
     }
@@ -52,17 +52,22 @@ class tasksController extends http\controller {
 		else
 			$record = new todo;
 		
-		$record->owneremail = $_POST['owneremail'];		// needs to be $_SESSION['owneremail'] for new ones
-		$record->ownerid = $_POST['ownerid']; 			// needs to be $_SESSION['userid'] for new ones
-		$record->createddate = $_POST['createddate']; 	// needs now() for new ones
+		$record->owneremail = $_POST['owneremail'];
+		$record->ownerid = $_POST['ownerid'];
+		$record->createddate = $_POST['createddate'];
 		$record->duedate = $_POST['duedate'];
 		$record->message = $_POST['message'];
-		$record->isdone = $_POST['isdone'];				// default is 0?
+		$record->isdone = $_POST['isdone'];
 		
 //        $record->body = $_REQUEST['body'];
-        $record->save();
-		
-		self::getTemplate('show_task', $record);
+		if (self::validator($record)) {
+	        $record->save();
+			echo 'Saved task!';
+			self::getTemplate('show_task', $record);
+		} else {
+			echo 'Save failed! Try again...';
+			self::getTemplate('edit_task', $record);
+		}
     }
 
     //this is the delete function.  You actually return the edit form and then there should be 2 forms on that.
@@ -77,11 +82,5 @@ class tasksController extends http\controller {
         self::getTemplate('all_tasks', $records);
 
     }
-		
-	// validates inputs for todos
-	private static function validator($record) {
-		
-		return true;
-	}
 
 }

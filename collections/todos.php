@@ -9,6 +9,10 @@ class todos extends database\collection {
     public static function findTasksbyID($userid) {
 		$record = todos::findOne($userid);
 	}
+	
+	public static function findTasksbyUserID($userid) {
+		$record = todos::findAllRelated($userid);
+	}
 }
 
 ?>

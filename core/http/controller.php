@@ -12,4 +12,20 @@ class controller {
 		include 'pages/templates/footer.php';
 
     }
+	
+	// validates inputs for todos
+	static public function validator($record) {
+		
+		$check = array();
+		foreach ($record as $key=>$val) { 
+			if ($key == 'id')
+				continue;
+			$check[] = isset($val) ? true : false;
+		}
+		
+		if (in_array(false, $check))
+			return false;
+		else
+			return true;
+	}
 }
