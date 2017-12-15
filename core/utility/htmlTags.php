@@ -41,26 +41,25 @@ class htmlTags {
 	}
 	
 	// ## listMaker: <ol> & <ul>
-	public static function listMaker($arr, $ordered) {
-		$list = htmlTags::listMaker($ordered, 0);
+	public static function listMaker($arr, $ordered = 0) {
+		$list = htmlTags::listTag($ordered);
 		foreach ($arr as $item) {
 			$list .= '<li>' . $item . '</li>';
 		}
-		$list .= htmlTags::listMaker($ordered, 1);
+		$list .= htmlTags::listTag($ordered, 1);
 		
 		return $list;
 	}
 	
-	private static function listTag($ordered, $close) {
+	private static function listTag($ordered, $close = NULL) {
 		if ($ordered) {
 			$type = 'ol';
 		} else {
 			$type = 'ul';
 		}
 		
-		if ($close) {
+		if ($close)
 			$close = '/';
-		}
 		
 		return '<' . $close . $type . '>';
 	}

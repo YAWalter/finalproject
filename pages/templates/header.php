@@ -15,4 +15,14 @@
     <![endif]-->
 </head>
 
-<body class="container">
+<body class="container" style="padding-top:50px;">
+
+<?php 
+	if (!isset($_REQUEST)) // && (isset($_SESSION)) 		// fix to check that we're not on the homepage
+		include 'menu.php';
+//	else {
+//		echo utility\htmlTags::heading('NOT LOGGED IN');
+//		echo '</body></html>';
+//		exit;
+//	}
+?>

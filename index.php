@@ -28,7 +28,7 @@ $response = http\processRequest::createResponse();
 
 //1.  ---DONE--- Get findall working and displaying a table for the todos class's todos_list method;
 //2.  ---DONE--- Get findOne working to find one to-do and make that work for the todos controller show method.  Remember you have to pass the ID.
-//3.  Get the Insert working
+//3.  ---DONE--- Get the Insert working
 //4.  ---DONE--- Get the delete working
 //5.  ---DONE--- update working
 //6.  once you have this all working for todos start working on accounts

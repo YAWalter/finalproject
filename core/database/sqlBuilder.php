@@ -4,9 +4,10 @@ namespace database;
 
 class sqlBuilder {
 	
-    public static function sqlSelect($table, $id = NULL, $limit = NULL) {
+	// note that $id is a generic field name ('id' by default, but I don't feel like refactoring to fix the confusion)
+    public static function sqlSelect($table, $id = NULL, $limit = NULL, $column = 'id') {
 		$sql  = 'SELECT * FROM ' . $table;
-		$sql .= sqlBuilder::where($id);
+		$sql .= sqlBuilder::where($id, $column);
 		$sql .= $limit ? 'LIMIT ' . $limit : '';
 		$sql .= ';';
 		
@@ -16,9 +17,9 @@ class sqlBuilder {
 	public static function sqlInsert($table, $data) {
 		$columns = sqlBuilder::getColumns($table);
 		
-		$sql  = 'INSERT INTO ' . $table;
-		$sql .= ' (' 		. $columns 		 . ')';
-		$sql .= ' VALUES (' . implode($data) . ');';		
+		$sql  = 'INSERT INTO '  . $table;
+		$sql .= ' (' 			. $columns 		 . ')';
+		$sql .= ' VALUES (' 	. implode($data) . ');';		
 		
 		return $sql;
 	}
@@ -31,11 +32,11 @@ class sqlBuilder {
 		return $sql;
 	}
 	
-	public static function where($id = NULL) {
+	public static function where($id = NULL, $column) {
 		// sticks in a 'WHERE id=$id' clause, if needed
 		$sql = '';
 		if ($id)
-			$sql = ' WHERE id=' . $id;
+			$sql = ' WHERE ' . $column . '=' . $id;
 		
 		return $sql;
 	}
