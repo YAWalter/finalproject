@@ -92,18 +92,21 @@ class accountsController extends http\controller {
             if($user->checkPassword($_POST['psw']) == TRUE) {
                 session_set_cookie_params(604800, '/');
 				session_start();
-                echo 'login';
+                //echo 'login';
                 $_SESSION['userID'] = $user->id;
-				$_SESSION['email'] = $user->owneremail;
-				echo utility\htmlTags::preObj($_SESSION);
+				$_SESSION['email'] = $user->email;
+				// the above works. Session starts, and those values are set correctly
+				
+				//echo utility\htmlTags::preObj($_SESSION);
+				//exit;
 				
                 //forward the user to the show all todos page
-				$records = todos::findAll($_SESSION['userID']);
+				//$records = todos::findAll($_SESSION['userID']);
 				
-				echo utility\htmlTags::preObj($records);
+				//echo utility\htmlTags::preObj($records);
 				
 				//self::getTemplate('all_tasks', $records);
-				//header("Location: index.php?page=tasks&action=all");
+				header("Location: index.php?page=tasks&action=all");
             } else {
                 echo 'password does not match';
 			}
@@ -112,8 +115,11 @@ class accountsController extends http\controller {
     }
 	
 	public static function logout() { 
-		if (isset($_SESSION)) {
+		if (isset($_SESSION['userID'])) {
+			echo utility\htmlTags::preObj($_SESSION);
+			echo 'IN HERE!';
 			$_SESSION = array();
+			echo utility\htmlTags::preObj($_SESSION);
 			session_destroy();
 		}
 		

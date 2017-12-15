@@ -1,5 +1,13 @@
 <!doctype html>
-
+<?php 
+	session_start();
+	if (isset($_SESSION['userID']))
+		echo 'logged in';
+	else
+		echo 'not logged in';
+//		$_SESSION['menu'] = true;
+	echo utility\htmlTags::preObj($_SESSION);
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -20,7 +28,7 @@
 <?php 
 	//if (isset($_SESSION['userID'])) {		// check that we're logged in
 		include 'menu.php';
-		echo utility\htmlTags::preObj($_SESSION);
+		//echo utility\htmlTags::preObj($_SESSION);
 //	}
 //	else {
 //		echo utility\htmlTags::heading('NOT LOGGED IN');

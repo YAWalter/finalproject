@@ -2,6 +2,8 @@
 //DEBUG - automatically turns off when debug does
 if (ini_get('display_errors')) {
 	echo utility\htmlTags::lineBreak(2);
+	echo utility\htmlTags::preObj($_SESSION);
+	echo utility\htmlTags::lineBreak(2);
 	echo utility\htmlTags::preObj($data);
 }
 ?>
