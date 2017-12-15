@@ -32,7 +32,7 @@ class htmlForm {
 	}
 	
 	// builds the action part of the form tag: page=XXX&action=XXX[&id=X]
-	public static function formAction($table, $action, $id) {
+	public static function formAction($table, $action, $id = NULL) {
 		$form  = '<form action="index.php?';
 		$form .= 'page=' . $table . '&action=' . $action;
 		$form .= htmlForm::checkID($id);

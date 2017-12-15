@@ -1,14 +1,15 @@
 <?php
 
     //this how to print some data;
-    echo utility\htmlTags::heading('This is my ' . $data['site_name'] . '; welcome!');
+	echo utility\htmlTags::heading('Final Project');
 
+	if (isset($_SESSION['userID'])) {
+		echo utility\htmlTags::heading(utility\htmlTags::href('index.php?page=accounts&action=all', 'Show All Accounts'));
+		echo utility\htmlTags::heading(utility\htmlTags::href('index.php?page=tasks&action=all', 'Show All Tasks'));
+	} else {
+		echo utility\htmlForm::formAction('accounts', 'login');
+	}
 ?>
-
-<h1><a href="index.php?page=accounts&action=all">Show All Accounts</a></h1>
-<h1><a href="index.php?page=tasks&action=all">Show All Tasks</a></h1>
-
-<form action="index.php?page=accounts&action=login" method="POST">
 
     <div class="container">
         <label><b>Username</b></label>

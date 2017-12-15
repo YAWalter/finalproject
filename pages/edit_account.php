@@ -1,8 +1,6 @@
+<?php
 
-<form action="index.php?page=accounts&action=delete&id=<?php $data['id'] ?> " method="post" id="form1">
-    <button type="submit" form="form1" value="delete">Delete</button>
-</form>
+echo utility\htmlForm::formBuild('accounts', 'store', $data);
+echo utility\htmlTags::lineBreak(2);
 
-<form action="index.php?page=accounts&action=edit&id=<?php $data['id'] ?> " method="post" id="form1">
-    <button type="submit" form="form1" value="edit">Edit</button>
-</form>
+?>

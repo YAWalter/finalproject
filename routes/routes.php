@@ -13,17 +13,16 @@ class route
 class routes
 {
 
-    public static function getRoutes()
-    {
+    public static function getRoutes() {
         // routes to match URL and request method with controller and method
         
 		// FACTORY: http_method, page, action, controller [,method = usually the same as action]
 		// 	-HTTP_METHODS
        	$http_methods 	= array('GET', 'POST');
 		// 	-PAGE [index.php?page=index; controller name / method called]
-		$pages 			= array('homepage', 'tasks', 'accounts', 'login');
+		$pages 			= array('homepage', 'tasks', 'accounts');
 		// 	-ACTION
-		$actions		= array('all', 'show', 'create', 'edit', 'store', 'delete');
+		$actions		= array('all', 'show', 'create', 'edit', 'store', 'delete', 'login', 'logout');
 		// 	-CONTROLLER
 		// 		$page.'Controller'
 		// 	-METHOD

@@ -49,22 +49,21 @@ class accountsController extends http\controller
     {
         print_r($_POST);
 		
-		$record = accounts::fineOne($_REQUEST['id']);
+		$record = accounts::findOne($_REQUEST['id']);
 		$record->email = $_POST['email'];
 		$record->fname = $_POST['fname'];
 		$record->lname = $_POST['lname'];
 		$record->phone = $_POST['phone'];
 		$record->birthday = $_POST['birthday'];
 		$record->gender = $_POST['gender'];
-		$record->password = $_POST['password'];
+		$record->password = $record->setPassword($_POST['password']);
 		$record->save();
 		
 		header("Location: index.php?page=accounts&action=all");
 
     }
 
-    public static function edit()
-    {
+    public static function edit() {
         $record = accounts::findOne($_REQUEST['id']);
 
         self::getTemplate('edit_account', $record);
@@ -79,11 +78,36 @@ class accountsController extends http\controller
         //then you need to check the password and create the session if the password matches.
         //you might want to add something that handles if the password is invalid, you could add a page template and direct to that
         //after you login you can use the header function to forward the user to a page that displays their accounts.
-        $record = accounts::findUser($_POST['uname']);
-		print_r($_POST);
-		print_r($record);
+		
+		//print_r($_POST);
+		echo utility\htmlTags::lineBreak();
+        
+		$user = accounts::findUserbyEmail($_POST['uname']);
+        if ($user == FALSE) {
+			self::getTemplate('homepage', 'User not Found');
+        } else {
+            if($user->checkPassword($_POST['psw']) == TRUE) {
+                echo 'login';
+                session_start();
+                $_SESSION['userID'] = $user->id;
+				
+                //forward the user to the show all todos page
+				$records = todos::findAll();
+				header("Location: index.php?page=tasks&action=all");
+            } else {
+                echo 'password does not match';
+			}
+		}
 
-		self::getTemplate('show_account', $record);
     }
+	
+	public static function logout() { 
+		if (isset($_SESSION)) {
+			$_SESSION = array();
+			session_destroy();
+		}
+		
+		self::getTemplate('homepage', 'Final Project');
+	}
 
 }

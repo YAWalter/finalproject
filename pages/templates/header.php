@@ -18,8 +18,10 @@
 <body class="container" style="padding-top:50px;">
 
 <?php 
-	if (!isset($_REQUEST)) // && (isset($_SESSION)) 		// fix to check that we're not on the homepage
+	//if (isset($_SESSION['userID'])) {		// check that we're logged in
 		include 'menu.php';
+		echo utility\htmlTags::preObj($_SESSION);
+//	}
 //	else {
 //		echo utility\htmlTags::heading('NOT LOGGED IN');
 //		echo '</body></html>';
