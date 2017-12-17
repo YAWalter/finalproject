@@ -18,9 +18,13 @@ class tasksController extends http\controller {
 
     //to call the show function the url is index.php?page=tasks&action=all
     public static function all() {
-        //$records = todos::findTasksbyID($_SESSION['userID']);
+        
 		$records = todos::findAll();
-        self::getTemplate('all_tasks', $records);
+        
+		// pulls only the related tasks
+		$records = todos::findTasksbyID($_SESSION['userID']);	
+		echo utility\htmlTags::preObj($records);
+		//self::getTemplate('all_tasks', $records);
     }
 	
     //to call the show function the url is called with a post to: index.php?page=task&action=create

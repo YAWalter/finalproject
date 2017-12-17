@@ -90,7 +90,7 @@ class accountsController extends http\controller {
 			self::getTemplate('homepage', 'User not Found');
         } else {
             if($user->checkPassword($_POST['psw']) == TRUE) {
-                session_set_cookie_params(604800, '/');
+                //session_set_cookie_params(604800, '/');
 				session_start();
                 //echo 'login';
                 $_SESSION['userID'] = $user->id;
@@ -101,12 +101,12 @@ class accountsController extends http\controller {
 				//exit;
 				
                 //forward the user to the show all todos page
-				//$records = todos::findAll($_SESSION['userID']);
-				
+				//$records = todos::findTasksbyID($_SESSION['userID']);	
 				//echo utility\htmlTags::preObj($records);
-				
 				//self::getTemplate('all_tasks', $records);
-				header("Location: index.php?page=tasks&action=all");
+				
+				$location = 'Location: index.php?page=accounts&action=show&id=' . $_SESSION['userID'];
+				header($location);
             } else {
                 echo 'password does not match';
 			}
@@ -116,8 +116,8 @@ class accountsController extends http\controller {
 	
 	public static function logout() { 
 //		if (isset($_SESSION['userID'])) {
-			echo utility\htmlTags::preObj($_SESSION);
-			echo 'IN HERE!';
+			session_start();
+			unset($_SESSION['userID']);
 			$_SESSION = array();
 			session_destroy();
 			echo utility\htmlTags::preObj($_SESSION);

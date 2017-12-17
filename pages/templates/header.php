@@ -3,10 +3,10 @@
 	session_start();
 	if (isset($_SESSION['userID'])) { 	// if we destroyed the session (for logout), ID would not be set (or "un"set)
 		echo 'logged in';
-//		$_SESSION['menu'] = true;
+		$_SESSION['menu'] = true;
 	} else {
 		echo 'not logged in';
-		//header("Location: index.php");
+		//header("Location: index.php"); // kicks non-logged-in-usersto the homepage
 	}
 	echo utility\htmlTags::preObj($_SESSION);
 ?>
@@ -28,10 +28,10 @@
 <body class="container" style="padding-top:50px;">
 
 <?php 
-	//if (isset($_SESSION['userID'])) {		// check that we're logged in
+	if (isset($_SESSION['userID'])) {		// check that we're logged in
 		include 'menu.php';
 		//echo utility\htmlTags::preObj($_SESSION);
-//	}
+	}
 //	else {
 //		echo utility\htmlTags::heading('NOT LOGGED IN');
 //		echo '</body></html>';
