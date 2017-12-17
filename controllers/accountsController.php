@@ -115,13 +115,13 @@ class accountsController extends http\controller {
     }
 	
 	public static function logout() { 
-		if (isset($_SESSION['userID'])) {
+//		if (isset($_SESSION['userID'])) {
 			echo utility\htmlTags::preObj($_SESSION);
 			echo 'IN HERE!';
 			$_SESSION = array();
-			echo utility\htmlTags::preObj($_SESSION);
 			session_destroy();
-		}
+			echo utility\htmlTags::preObj($_SESSION);
+//		}
 		
 		self::getTemplate('homepage', 'Final Project');
 	}

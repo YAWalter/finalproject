@@ -1,11 +1,13 @@
 <!doctype html>
 <?php 
 	session_start();
-	if (isset($_SESSION['userID']))
+	if (isset($_SESSION['userID'])) { 	// if we destroyed the session (for logout), ID would not be set (or "un"set)
 		echo 'logged in';
-	else
-		echo 'not logged in';
 //		$_SESSION['menu'] = true;
+	} else {
+		echo 'not logged in';
+		//header("Location: index.php");
+	}
 	echo utility\htmlTags::preObj($_SESSION);
 ?>
 <html lang="en">

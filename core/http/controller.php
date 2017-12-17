@@ -8,7 +8,7 @@ class controller {
     static public function getTemplate($template, $data = NULL) {
 		
 		include 'pages/templates/header.php';
-        include 'pages/' . $template . '.php'; 	// use $data to access the array in the template 
+        include 'pages/' . $template . '.php'; 	// since this is an include, $data is now in state (i.e. we can directly access $data in $template)
 		include 'pages/templates/footer.php';
 
     }
@@ -18,6 +18,7 @@ class controller {
 		
 		$check = array();
 		foreach ($record as $key=>$val) { 
+			// skip ID field, since new objects won't have IDs yet (and it's pointless to check)
 			if ($key == 'id')
 				continue;
 			$check[] = isset($val) ? true : false;
