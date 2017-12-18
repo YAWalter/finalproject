@@ -6,6 +6,7 @@ class accountsController extends http\controller {
     //each method in the controller is named an action.
     //to call the show function the url is index.php?page=account&action=show
     public static function show() {
+		session_start();
         $record = accounts::findOne($_REQUEST['id']);
         self::getTemplate('show_account', $record);
     }
@@ -13,7 +14,7 @@ class accountsController extends http\controller {
     //to call the show function the url is index.php?page=account&action=list_account
 
     public static function all() {
-
+		session_start();
         $records = accounts::findAll();
         self::getTemplate('all_accounts', $records);
 
@@ -25,6 +26,7 @@ class accountsController extends http\controller {
 
     //this is to register an account i.e. insert a new account
     public static function create() {
+		session_start();
         $record = accounts::create();
 		if ($_POST)
 			$record->body = $_REQUEST['body'];
@@ -34,10 +36,14 @@ class accountsController extends http\controller {
 
     //this is the function to save the user the user profile
     public static function store() {
-        if (array_key_exists('id', $_REQUEST))
+		session_start();
+        if (array_key_exists('id', $_REQUEST)) {
 			$record = accounts::findOne($_REQUEST['id']);
-		else
+			$login = false;
+		} else {
 			$record = new account;
+			$login = true;
+		}
 		
 		$record->email = $_POST['email'];
 		$record->fname = $_POST['fname'];
@@ -50,7 +56,11 @@ class accountsController extends http\controller {
 		if (self::validator($record)) {
 	        $record->save();
 			echo 'Saved account!';
-			self::getTemplate('show_account', $record);
+			// if this is a new user, log them in
+			if ($login)
+				self::getTemplate('homepage', 'New login \''. $_POST['email'] .'\' activated! Please log in...');
+			else
+				self::getTemplate('show_account', $record);
 		} else {
 			echo 'Save failed! Try again...';
 			self::getTemplate('edit_account', $record);
@@ -59,6 +69,7 @@ class accountsController extends http\controller {
     }
 
     public static function edit() {
+		session_start();
         $record = accounts::findOne($_REQUEST['id']);
 
         self::getTemplate('edit_account', $record);
@@ -66,6 +77,7 @@ class accountsController extends http\controller {
     }
 	
 	public static function delete() {
+		session_start();
         $record = accounts::findOne($_REQUEST['id']);
 		$record->delete();
         echo 'Deleted account id: ' . $_REQUEST['id'];
@@ -105,10 +117,10 @@ class accountsController extends http\controller {
 				//echo utility\htmlTags::preObj($records);
 				//self::getTemplate('all_tasks', $records);
 				
-				$location = 'Location: index.php?page=accounts&action=show&id=' . $_SESSION['userID'];
+				$location = 'Location: index.php?page=tasks&action=all';
 				header($location);
             } else {
-                echo 'password does not match';
+				self::getTemplate('homepage', 'Re-enter password');
 			}
 		}
 
@@ -120,10 +132,10 @@ class accountsController extends http\controller {
 			unset($_SESSION['userID']);
 			$_SESSION = array();
 			session_destroy();
-			echo utility\htmlTags::preObj($_SESSION);
+//			echo utility\htmlTags::preObj($_SESSION);
 //		}
 		
-		self::getTemplate('homepage', 'Final Project');
+		self::getTemplate('homepage', 'Logged out of Final Project!');
 	}
 
 }

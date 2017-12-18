@@ -1,5 +1,5 @@
 <?php
-// THIS WHOLE THING DUPLICATES model.php; NEED TO REMOVE
+// THIS WHOLE THING DUPLICATES model.php; NEED TO REMOVE?
 namespace database;
 
 class sqlBuilder {

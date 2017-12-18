@@ -1,7 +1,9 @@
 <?php
 
+date_default_timezone_set('America/New_York'); // a set and forget for createddate field
+
 //turn on debugging messages
-include_once "debug.php";
+//include_once "debug.php";
 
 //Autoloader class to load all the different directories
 include_once "autoload.php";

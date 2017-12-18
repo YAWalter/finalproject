@@ -21,6 +21,25 @@ class controller {
 			// skip ID field, since new objects won't have IDs yet (and it's pointless to check)
 			if ($key == 'id')
 				continue;
+			
+			// password must be greater than 6 chars
+			if (($key == 'password') && (strlen($val) < 6)) {
+				$check[] = false;
+				continue;
+			} 
+			
+			// email check
+			if (($key == 'email') && !(filter_var($val, FILTER_VALIDATE_EMAIL))) {
+				$check[] = false;
+				continue;
+			}
+			
+			// message check
+			if (($key == 'message') && (strlen($val) < 1)) {
+				$check[] = false;
+				continue;
+			}
+			
 			$check[] = isset($val) ? true : false;
 		}
 		

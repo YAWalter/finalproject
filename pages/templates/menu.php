@@ -12,7 +12,7 @@
 	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 	
 	<li role="presentation"><span style="font-size: 125%;">
-		<?php echo utility\htmlTags::href('index.php?page=accounts&action=all', 'Show all Accounts'); ?>
+		<?php echo utility\htmlTags::href('index.php?page=accounts&action=show&id=' . $_SESSION['userID'], 'Show Account info'); ?>
 	</span></li>
 	
 	<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>

@@ -41,12 +41,17 @@ class htmlForm {
 		return $form;
 	}
 	
-	public static function formInput($name, $val = NULL, $type = 'text') {
+	public static function formInput($name, $val = NULL, $type = 'text', $show = true) {
+		
 		// echo '--- ' . $val . ' ---' . htmlTags::lineBreak();
 		$input = '<input type="' . $type . '" ' .
 					 'name="' . $name . '" ' .
 					 'id="'   . $name . '" ' . 
-					 'value="'. $val  . '">';
+					 'value="'. $val  . '" ';
+		if (!$show)
+			$input .= 'readonly ';
+			
+		$input .= '>';
 		
 		return $input;
 	}
@@ -63,6 +68,7 @@ class htmlForm {
 	// builds text inputs for forms
 	public static function formInputs($data) {
 		
+		$datetime = date_create()->format('Y-m-d H:i:s'); // if we need the current time
 		$inputs = '';	
 		
 		foreach ($data as $key=>$val) {
@@ -75,6 +81,15 @@ class htmlForm {
 			// hides input for password field
 			if ($key == 'password')
 				$inputs .= htmlForm::formInput($key, $data->$key, 'password');
+			// for new items, pull session info
+			elseif (($_REQUEST['action'] == 'create') && ($key == 'owneremail'))
+				$inputs .= htmlForm::formInput($key, $_SESSION['email'], 'text', false);
+			elseif (($_REQUEST['action'] == 'create') && ($key == 'ownerid'))
+				$inputs .= htmlForm::formInput($key, $_SESSION['userID'], 'text', false);
+			elseif (($_REQUEST['action'] == 'create') && ($key == 'createddate'))
+				$inputs .= htmlForm::formInput($key, $datetime, 'text', false);
+			elseif (($_REQUEST['action'] != 'create') && ($key == 'owneremail' || $key == 'ownerid'))
+				$inputs .= htmlForm::formInput($key, $data->$key, 'text', false);
 			else
 				$inputs .= htmlForm::formInput($key, $data->$key);
 				
