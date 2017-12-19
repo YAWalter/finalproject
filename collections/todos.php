@@ -25,7 +25,6 @@ class todos extends database\collection {
 		}
 	}
 	
-	//public static function findTasksbyUserID($userid) { $record = todos::findAllRelated($userid); }
 }
 
 ?>

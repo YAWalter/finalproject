@@ -49,7 +49,7 @@ class htmlForm {
 					 'id="'   . $name . '" ' . 
 					 'value="'. $val  . '" ';
 		if (!$show)
-			$input .= 'readonly ';
+			$input .= 'disabled ';
 			
 		$input .= '>';
 		
@@ -73,7 +73,7 @@ class htmlForm {
 		
 		foreach ($data as $key=>$val) {
 			// hide the id column
-			if ($key == 'id') {
+			if (($key == 'id') || $key == 'ownerid') {
 				continue;
 			}
 			
@@ -84,8 +84,6 @@ class htmlForm {
 			// for new items, pull session info
 			elseif (($_REQUEST['action'] == 'create') && ($key == 'owneremail'))
 				$inputs .= htmlForm::formInput($key, $_SESSION['email'], 'text', false);
-			elseif (($_REQUEST['action'] == 'create') && ($key == 'ownerid'))
-				$inputs .= htmlForm::formInput($key, $_SESSION['userID'], 'text', false);
 			elseif (($_REQUEST['action'] == 'create') && ($key == 'createddate'))
 				$inputs .= htmlForm::formInput($key, $datetime, 'text', false);
 			elseif (($_REQUEST['action'] != 'create') && ($key == 'owneremail' || $key == 'ownerid'))

@@ -16,7 +16,8 @@ class accountsController extends http\controller {
     public static function all() {
 		session_start();
         $records = accounts::findAll();
-        self::getTemplate('all_accounts', $records);
+        // don't need this: self::getTemplate('all_accounts', $records);
+		self::getTemplate('show_accounts', $records);
 
     }
     //to call the show function the url is called with a post to: index.php?page=account&action=create
@@ -82,8 +83,15 @@ class accountsController extends http\controller {
 		$record->delete();
         echo 'Deleted account id: ' . $_REQUEST['id'];
 		
-		$records = accounts::findAll();
-        self::getTemplate('all_accounts', $records);
+		// if we deleted the active user, logout
+		if ($_SESSION['userID'] == $_REQUEST['id']) {
+			unset($_SESSION['userID']);
+			$_SESSION = array();
+			session_destroy();
+	        self::getTemplate('homepage', 'You deleted yourself! I hope you\'re happy...');
+		} else {
+			$record = accounts::findOne($_SESSION['id']);
+		}
 
     }
 

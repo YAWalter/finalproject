@@ -25,8 +25,13 @@ class tasksController extends http\controller {
         
 		// pulls only the related tasks
 		$records = todos::findTasksbyID($_SESSION['userID']);	
-		//echo utility\htmlTags::preObj($records);
-		self::getTemplate('all_tasks', $records);
+		
+		if ($records != null) {
+	        self::getTemplate('all_tasks', $records);
+		} else {
+			self::getTemplate('homepage', 'No tasks!');
+		}
+
     }
 	
     //to call the show function the url is called with a post to: index.php?page=task&action=create
@@ -48,8 +53,8 @@ class tasksController extends http\controller {
     public static function edit() {
         session_start();
 		$record = todos::findOne($_REQUEST['id']);
-
-       	self::getTemplate('edit_task', $record);
+		if ($_SESSION['email'] == $record->ownerid)
+	       	self::getTemplate('edit_task', $record);
     }
 
     //this would be for the post for sending the task edit form
@@ -90,7 +95,7 @@ class tasksController extends http\controller {
         echo 'Deleted todo id: ' . $_REQUEST['id'];
         //print_r($_POST);
 		
-		$records = todos::findAll();
+		$records = todos::findTasksbyID();
         self::getTemplate('all_tasks', $records);
 
     }

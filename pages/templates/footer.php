@@ -3,6 +3,8 @@
 if (ini_get('display_errors')) {
 	echo utility\htmlTags::lineBreak(2);
 	echo utility\htmlTags::preObj($_SESSION);
+}
+if ($data == 'No tasks!') {
 	echo utility\htmlTags::lineBreak(2);
 	echo utility\htmlTags::preObj($data);
 }
